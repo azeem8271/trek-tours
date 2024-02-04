@@ -1,19 +1,21 @@
 const Review = require('../models/reviewModel');
-const catchAsyncErrors = require('../utils/catchAsyncErrors');
+// const catchAsyncErrors = require('../utils/catchAsyncErrors');
 const factory = require('./handleFactory');
 
-exports.getAllReviews = catchAsyncErrors(async (req, res, next) => {
-  let filter = {};
-  if (req.params.tourId) filter = { tour: req.params.tourId };
-  const reviews = await Review.find(filter);
-  res.status(200).json({
-    status: 'success',
-    results: reviews.length,
-    data: {
-      reviews,
-    },
-  });
-});
+exports.getAllReviews = factory.getAll(Review);
+
+// catchAsyncErrors(async (req, res, next) => {
+//   let filter = {};
+//   if (req.params.tourId) filter = { tour: req.params.tourId };
+//   const reviews = await Review.find(filter);
+//   res.status(200).json({
+//     status: 'success',
+//     results: reviews.length,
+//     data: {
+//       reviews,
+//     },
+//   });
+// });
 
 exports.setTourAndUserIds = (req, res, next) => {
   // Allow nested routes eg: /tours/:tourId/reviews

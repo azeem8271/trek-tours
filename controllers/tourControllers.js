@@ -1,5 +1,5 @@
 const Tour = require('../models/tourModel');
-const APIFeatures = require('../utils/apiFeatures');
+// const APIFeatures = require('../utils/apiFeatures');
 const catchAsyncError = require('../utils/catchAsyncErrors');
 const factory = require('./handleFactory');
 
@@ -10,23 +10,25 @@ exports.aliasTop5Cheap = (req, res, next) => {
   next();
 };
 
-exports.getAllTours = catchAsyncError(async (req, res) => {
-  const features = new APIFeatures(Tour.find(), req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
+// exports.getAllTours = catchAsyncError(async (req, res) => {
+//   const features = new APIFeatures(Tour.find(), req.query)
+//     .filter()
+//     .sort()
+//     .limitFields()
+//     .paginate();
 
-  const tours = await features.mongooseQuery;
+//   const tours = await features.mongooseQuery;
 
-  res.status(200).json({
-    status: 'success',
-    results: tours.length,
-    data: {
-      tours,
-    },
-  });
-});
+//   res.status(200).json({
+//     status: 'success',
+//     results: tours.length,
+//     data: {
+//       tours,
+//     },
+//   });
+// });
+
+exports.getAllTours = factory.getAll(Tour);
 
 exports.getTourById = factory.getOne(Tour, { path: 'reviews' });
 exports.createTour = factory.createOne(Tour);

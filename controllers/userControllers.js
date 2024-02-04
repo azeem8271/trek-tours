@@ -62,14 +62,15 @@ exports.createUser = (req, res, next) => {
   });
 };
 
-exports.getAllUsers = catchAsyncErrors(async (req, res) => {
-  const users = await User.find();
-  res.status(200).json({
-    status: 'success',
-    length: users.length,
-    users,
-  });
-});
+// exports.getAllUsers = catchAsyncErrors(async (req, res) => {
+//   const users = await User.find();
+//   res.status(200).json({
+//     status: 'success',
+//     length: users.length,
+//     users,
+//   });
+// });
+exports.getAllUsers = factory.getAll(User);
 
 exports.getUserById = factory.getOne(User);
 exports.updateUser = factory.updateOne(User);
